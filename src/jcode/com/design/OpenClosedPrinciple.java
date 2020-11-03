@@ -1,10 +1,11 @@
-package java.com.design;
+package jcode.com.design;
 
-/**
+/*
  * Open closed principle illustrates how code should be open for extension but closed for modification
  * We should be able to extend the functionality of the code for new requirements,
  * but should not change the existing classes for new functionality
- **/
+ */
+
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -30,9 +31,9 @@ interface Filter<T> {
 }
 
 class Product {
-    private String name;
-    private Color color;
-    private Size size;
+    public String name;
+    public Color color;
+    public Size size;
 
     public Product(String name, Color color, Size size) {
         this.name = name;
@@ -50,7 +51,7 @@ class SizeSpecification implements Specification<Product> {
     private Size size;
 
     public SizeSpecification(Size size) {
-        this.size = size
+        this.size = size;
     }
 
     @Override
@@ -59,13 +60,12 @@ class SizeSpecification implements Specification<Product> {
     }
 }
 
-class ColorSpecification implements Specification<T> {
-    private color;
+class ColorSpecification implements Specification<Product> {
+    private Color color;
 
     public ColorSpecification(Color color) {
-        return this.color = color;
+        this.color = color;
     }
-
 
     @Override
     public boolean isSatisfied(Product item) {
@@ -73,7 +73,7 @@ class ColorSpecification implements Specification<T> {
     }
 }
 
-class ProductFilter implements Filter<T> {
+class ProductFilter implements Filter<Product> {
 
     @Override
     public Stream<Product> filter(List<Product> items, Specification<Product> spec) {
@@ -92,6 +92,6 @@ public class OpenClosedPrinciple {
 
         ProductFilter filter = new ProductFilter();
         filter.filter(productList, new ColorSpecification(Color.RED)).
-                forEach(p -> System.out.println(" - " + p.name + " is Red");
+                forEach(p -> System.out.println(" - " + p.name + " is Red"));
     }
 }
